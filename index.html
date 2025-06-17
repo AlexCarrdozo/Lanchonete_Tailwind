@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Snacks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="script.js" defer></script>
+    <style>
+        /* Estilo customizado para a imagem de fundo */
+        body {
+            background: url('https://static.vecteezy.com/system/resources/previews/002/076/791/large_2x/rustic-wood-texture-free-photo.jpg') center/cover fixed;
+        }
+        /* Classe para a transição do menu lateral */
+        .menu-transition {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <div class="fixed top-5 right-5 z-20 bg-[#C70039] text-white w-12 h-12 rounded-full flex items-center justify-center cursor-pointer shadow-lg" onclick="toggleCarrinho()">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="carrinho-contador" class="absolute -top-2 -right-2 bg-green-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">0</span>
+    </div>
+
+    <div class="fixed top-20 right-5 bg-white p-6 rounded-lg w-80 shadow-2xl z-20 hidden" id="carrinho">
+        <h2 class="text-2xl font-bold mb-4">Carrinho</h2>
+        <div class="carrinho-itens" id="carrinho-itens">
+            </div>
+        <div class="carrinho-total mt-4 pt-4 border-t">
+            <h3 class="text-xl font-bold">Total: R$ <span id="carrinho-total">0.00</span></h3>
+        </div>
+        <button class="w-full mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition hidden" onclick="finalizarPedido()" id="btn-finalizar">
+            Finalizar Pedido
+        </button>
+    </div>
+
+    <header class="text-white text-center py-8">
+        <div class="flex justify-center mb-4">
+            <div class="w-48 h-48 rounded-full border-4 border-white/80 shadow-lg bg-white overflow-hidden transform hover:scale-105 transition-transform">
+                <img src="Imagens/CyberSnacks.png" alt="Logo Lanchonete" class="w-full h-full object-cover">
+            </div>
+        </div>
+        <h1 class="text-5xl font-bold my-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">CYBER SNACKS</h1>
+        <p class="text-xl" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">SABORES QUE SE CONECTAM!</p>
+    </header>
+
+    <div class="menu-toggle fixed top-5 left-5 z-20 bg-[#C70039] text-white w-12 h-12 rounded-full flex items-center justify-center cursor-pointer shadow-lg">
+        <i class="fas fa-bars text-xl"></i>
+    </div>
+
+    <nav id="menu-lateral" class="menu-lateral menu-transition fixed top-0 -left-full w-64 h-full bg-white shadow-2xl z-10 pt-20">
+        <ul class="menu-items">
+            <li><a href="#lanches" class="flex items-center text-gray-700 py-3 px-6 hover:bg-[#C70039] hover:text-white transition"><i class="fas fa-hamburger w-8"></i> Lanches</a></li>
+            <li><a href="#bebidas" class="flex items-center text-gray-700 py-3 px-6 hover:bg-[#C70039] hover:text-white transition"><i class="fas fa-glass-cheers w-8"></i> Bebidas</a></li>
+            <li><a href="#sobremesas" class="flex items-center text-gray-700 py-3 px-6 hover:bg-[#C70039] hover:text-white transition"><i class="fas fa-ice-cream w-8"></i> Sobremesas</a></li>
+            <li><a href="#contato" class="flex items-center text-gray-700 py-3 px-6 hover:bg-[#C70039] hover:text-white transition"><i class="fas fa-envelope w-8"></i> Contato</a></li>
+        </ul>
+    </nav>
+    
+    <main class="bg-white/90 max-w-6xl mx-auto p-5 sm:p-8 rounded-lg shadow-xl mb-10">
+        
+        <section id="lanches" class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-800">Lanches</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModal('X-Burguer', 'Delicioso hambúrguer com queijo derretido, alface fresca e tomate suculento. Preparado com ingredientes selecionados para garantir o melhor sabor.', 18.90, 'Imagens/X-Burguer.jpg')">
+                    <img src="Imagens/X-Burguer.jpg" alt="X-Burguer" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">X-Burguer</h3>
+                        <p class="text-gray-600 text-sm">Pão, hambúrguer, queijo, alface e tomate</p>
+                    </div>
+                    <div class="p-4 border-t flex justify-between items-center">
+                        <p class="text-lg font-bold text-red-700">R$ 18,90</p>
+                        <button class="bg-[#C70039] hover:bg-[#99002C] text-white font-bold py-1 px-3 rounded text-sm transition" onclick="event.stopPropagation(); adicionarAoCarrinho('X-Burguer', 18.90)">Adicionar</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModal('X-Bacon', 'Hambúrguer especial com bacon crocante, queijo derretido e vegetais frescos. Uma explosão de sabores em cada mordida.', 22.90, 'Imagens/X-Bacon.jpg')">
+                    <img src="Imagens/X-Bacon.jpg" alt="X-Bacon" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">X-Bacon</h3>
+                        <p class="text-gray-600 text-sm">Pão, hambúrguer, queijo, bacon, alface e tomate</p>
+                    </div>
+                    <div class="p-4 border-t flex justify-between items-center">
+                        <p class="text-lg font-bold text-red-700">R$ 22,90</p>
+                        <button class="bg-[#C70039] hover:bg-[#99002C] text-white font-bold py-1 px-3 rounded text-sm transition" onclick="event.stopPropagation(); adicionarAoCarrinho('X-Bacon', 22.90)">Adicionar</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalLanches('Coxinha', [{nome: 'Coxinha de Frango', preco: 5.00, imagem: 'Imagens/coxinha frango.jpg', descricao: 'Coxinha tradicional de frango com massa crocante'}, {nome: 'Coxinha de Frango com Catupiry', preco: 6.00, imagem: 'Imagens/coxinha catupiry.jpg', descricao: 'Coxinha de frango com catupiry cremoso'}, {nome: 'Coxinha de Frango com Cream Cheese', preco: 6.00, imagem: 'Imagens/coxinha creem.png', descricao: 'Coxinha de frango com cream cheese'}])">
+                    <img src="Imagens/Coxinha.jpg" alt="Coxinha" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Coxinha</h3>
+                        <p class="text-gray-600 text-sm">Diversos sabores</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">A partir de R$ 5,00</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalLanches('Cento de Salgados', [{nome: '50 Salgados', preco: 50.00, imagem: 'Imagens/50 salgados.jpg', descricao: 'Mix com enrroladinho de salcicha, bolinha de queijo e risole'}, {nome: 'Cento Tradicional', preco: 100.00, imagem: 'Imagens/cento tradicional.jpg', descricao: 'Mix com esfiha, pastel e coxinha especial'}, {nome: 'Cento Festa', preco: 160.00, imagem: 'Imagens/cento festa.jpg', descricao: 'Mix completo com todos os salgados da casa'}])">
+                    <img src="Imagens/cento salgados.jpg" alt="Cento de Salgados" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Cento de Salgados</h3>
+                        <p class="text-gray-600 text-sm">Diversos tipos</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">A partir de R$ 50,00</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalLanches('Empada', [{nome: 'Empada de Carne de Sol', preco: 7.00, imagem: 'Imagens/empada carne.webp', descricao: 'Empada recheada com carne de sol desfiada'}, {nome: 'Empada de Frango', preco: 6.00, imagem: 'Imagens/empada frango.jpg', descricao: 'Empada tradicional de frango com milho'}, {nome: 'Empada de Palmito', preco: 6.50, imagem: 'Imagens/empadinhas palmito.jpg', descricao: 'Empada vegetariana de palmito'}])">
+                    <img src="Imagens/empada.jpg" alt="Empada" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Empada</h3>
+                        <p class="text-gray-600 text-sm">Diversos sabores</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">A partir de R$ 6,00</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalLanches('Sanduíche Natural', [{nome: 'Natural de Frango', preco: 12.00, imagem: 'Imagens/sanduiche frango.webp', descricao: 'Frango desfiado, cenoura, alface e maionese'}, {nome: 'Natural de Atum', preco: 12.00, imagem: 'Imagens/sanduiche atum.avif', descricao: 'Atum, cenoura, alface e maionese'}, {nome: 'Natural Vegetariano', preco: 11.00, imagem: 'Imagens/sanduiche vegetariano.jpg', descricao: 'Mix de legumes, ricota e patê de cenoura'}])">
+                    <img src="Imagens/sanduiche.jpg" alt="Sanduíche Natural" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Sanduíche Natural</h3>
+                        <p class="text-gray-600 text-sm">Opções saudáveis</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">A partir de R$ 11,00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bebidas" class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-800">Bebidas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalBebidas('Refrigerante', [{nome: 'Coca-Cola', preco: 5.00, imagem: 'Imagens/refri 1.webp', descricao: 'Coca-Cola Original Lata 350ml'}, {nome: 'Guaraná', preco: 5.00, imagem: 'Imagens/refri 2.png', descricao: 'Guaraná Antarctica Lata 350ml'}, {nome: 'Sprite', preco: 5.00, imagem: 'Imagens/refri 3.jpg', descricao: 'Sprite Lata 350ml'}, {nome: 'Fanta', preco: 5.00, imagem: 'Imagens/refri 4.webp', descricao: 'Fanta Laranja Lata 350ml'}])">
+                    <img src="Imagens/refri.png" alt="Refrigerante" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Refrigerante</h3>
+                        <p class="text-gray-600 text-sm">Lata 350ml</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">R$ 5,00</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalBebidas('Suco Natural', [{nome: 'Suco de Laranja', preco: 8.00, imagem: 'Imagens/suco 1.jpg', descricao: 'Suco natural de laranja espremida na hora'}, {nome: 'Suco de Morango', preco: 8.00, imagem: 'Imagens/suco 2.jpg', descricao: 'Suco de morango natural com pedaços da fruta'}, {nome: 'Suco de Abacaxi', preco: 8.00, imagem: 'Imagens/suco 3.jpg', descricao: 'Suco de abacaxi natural com hortelã'}, {nome: 'Suco de Maracujá', preco: 8.00, imagem: 'Imagens/suco 4.webp', descricao: 'Suco de maracujá natural'}])">
+                    <img src="Imagens/suco.jpg" alt="Suco Natural" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Suco Natural</h3>
+                        <p class="text-gray-600 text-sm">Copo 400ml</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">R$ 8,00</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalBebidas('Água', [{nome: 'Água Mineral', preco: 3.00, imagem: 'Imagens/agua 1.jpg', descricao: 'Água mineral sem gás 500ml'}, {nome: 'Água com Gás', preco: 4.00, imagem: 'Imagens/agua 2.jpeg', descricao: 'Água mineral com gás 500ml'}])">
+                    <img src="Imagens/agua.jpg" alt="Água" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Água Mineral</h3>
+                        <p class="text-gray-600 text-sm">Com e sem gás</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">A partir de R$ 3,00</p>
+                    </div>
+                </div>
+
+                 <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalBebidas('Café', [{nome: 'Café Expresso', preco: 4.00, imagem: 'Imagens/cafe 1.png', descricao: 'Café expresso tradicional'}, {nome: 'Cappuccino', preco: 7.00, imagem: 'Imagens/cafe 2.jpg', descricao: 'Cappuccino cremoso'}, {nome: 'Café com Leite', preco: 5.00, imagem: 'Imagens/cafe 3.avif', descricao: 'Café com leite tradicional'}])">
+                    <img src="Imagens/cafe.jpg" alt="Café" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Café</h3>
+                        <p class="text-gray-600 text-sm">Diversas opções</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">A partir de R$ 4,00</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobremesas" class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 pb-2 border-b-2 border-gray-800">Sobremesas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalSobremesas('Pudim', [{nome: 'Pudim de Leite', preco: 8.90, imagem: 'Imagens/pudim.avif', descricao: 'Delicioso pudim de leite condensado com calda caramelizada'}, {nome: 'Pudim de Chocolate', preco: 9.90, imagem: 'Imagens/pudim 2.webp', descricao: 'Pudim de chocolate com cereja'}])">
+                    <img src="Imagens/pudim.avif" alt="Pudim" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Pudim</h3>
+                        <p class="text-gray-600 text-sm">Tradicional ou chocolate</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">A partir de R$ 8,90</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalSobremesas('Bolo', [{nome: 'Bolo de Chocolate', preco: 15.00, imagem: 'Imagens/bolo 1.webp', descricao: 'Fatia de bolo de chocolate'}, {nome: 'Bolo de Cenoura', preco: 7.00, imagem: 'Imagens/bolo 2.jpg.crdownload', descricao: 'Fatia de bolo de cenoura com cobertura'}, {nome: 'Bolo Red Velvet', preco: 17.00, imagem: 'Imagens/bolo 3.jpg', descricao: 'Fatia de bolo Red Velvet'}])">
+                    <img src="Imagens/bolo.jpg" alt="Bolo" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Bolos</h3>
+                        <p class="text-gray-600 text-sm">Diversos sabores</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">A partir de R$ 7,00</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalSobremesas('Sorvete', [{nome: 'Sorvete de Chocolate', preco: 6.00, imagem: 'Imagens/sorvetes 1.jpg', descricao: 'Bola de sorvete de chocolate'}, {nome: 'Sorvete de Morango', preco: 6.00, imagem: 'Imagens/sorvetes 2.jpeg', descricao: 'Bola de sorvete de morango'}, {nome: 'Sorvete de Creme', preco: 6.00, imagem: 'Imagens/sorvetes 3.jpeg', descricao: 'Bola de sorvete de creme'}])">
+                    <img src="Imagens/sorvetes.jpg" alt="Sorvete" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Sorvetes</h3>
+                        <p class="text-gray-600 text-sm">Diversos sabores</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">R$ 6,00 / bola</p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md overflow-hidden flex flex-col cursor-pointer transition-transform hover:scale-105" onclick="abrirModalSobremesas('Açaí', [{nome: 'Açaí 300ml', preco: 12.00, imagem: 'Imagens/acai 1.png', descricao: 'Açaí com granola e banana'}, {nome: 'Açaí 500ml', preco: 23.00, imagem: 'Imagens/acai 2.avif', descricao: 'Açaí com granola, banana e leite condensado'}, {nome: 'Açaí Especial', preco: 28.00, imagem: 'Imagens/acai 3.webp', descricao: 'Açaí com 600 ml de frutas variadas e complementos'}])">
+                    <img src="Imagens/acai.jpg" alt="Açaí" class="w-full h-48 object-cover">
+                    <div class="p-4 flex-grow">
+                        <h3 class="text-xl font-bold">Açaí</h3>
+                        <p class="text-gray-600 text-sm">Diversos tamanhos e complementos</p>
+                    </div>
+                    <div class="p-4 border-t">
+                        <p class="text-lg font-bold text-red-700">A partir de R$ 12,00</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contato" class="py-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8 pb-2 text-center border-b-2 border-gray-800">Contato</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-center">
+                
+                <div class="bg-white p-6 rounded-lg shadow-md transition-transform hover:-translate-y-1">
+                    <i class="fas fa-phone text-4xl text-[#C70039] mb-3"></i>
+                    <h3 class="text-xl font-bold mb-1">Telefone</h3>
+                    <p class="text-gray-700">(63) 99974-8563</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md transition-transform hover:-translate-y-1">
+                    <i class="fas fa-map-marker-alt text-4xl text-[#C70039] mb-3"></i>
+                    <h3 class="text-xl font-bold mb-1">Endereço</h3>
+                    <p class="text-gray-700">Palmas Brasil, 123 - Centro</p>
+                </div>
+
+                 <div class="bg-white p-6 rounded-lg shadow-md transition-transform hover:-translate-y-1">
+                    <i class="fas fa-clock text-4xl text-[#C70039] mb-3"></i>
+                    <h3 class="text-xl font-bold mb-1">Horário</h3>
+                    <p class="text-gray-700">Segunda a Sábado</p>
+                    <p class="text-gray-700">11h às 23h</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md transition-transform hover:-translate-y-1 sm:col-start-auto lg:col-start-2">
+                    <i class="fab fa-whatsapp text-4xl text-[#C70039] mb-3"></i>
+                    <h3 class="text-xl font-bold mb-1">WhatsApp</h3>
+                    <p class="text-gray-700">(63) 99974-8563</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md transition-transform hover:-translate-y-1">
+                    <i class="fab fa-instagram text-4xl text-[#C70039] mb-3"></i>
+                    <h3 class="text-xl font-bold mb-1">Instagram</h3>
+                    <p class="text-gray-700">@cybersnacks</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div class="modal hidden fixed inset-0 bg-black/80 z-30 justify-center items-center p-4" id="modal">
+        <div class="modal-content bg-white p-6 sm:p-8 rounded-lg max-w-3xl w-full text-center relative max-h-[90vh] overflow-y-auto">
+            </div>
+    </div>
+    
+    <div class="mensagem hidden fixed bottom-10 right-5 bg-green-500 text-white py-3 px-5 rounded-lg shadow-lg z-40" id="mensagem"></div>
+
+    <footer class="text-center py-6 text-white" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+        <p>© 2024 Cyber Snacks. Todos os direitos reservados.</p>
+    </footer>
+
+</body>
+</html>
